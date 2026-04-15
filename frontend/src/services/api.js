@@ -1,7 +1,8 @@
 import axios from "axios";
 
+// 🔥 ALWAYS hit full backend URL in production
 const API = axios.create({
-  baseURL: "/api" // 🔥 LOCAL + PRODUCTION dono me kaam karega
+  baseURL: "https://shop-app-1-l1m7.onrender.com/api"
 });
 
 // TOKEN
@@ -12,5 +13,14 @@ API.interceptors.request.use((config) => {
   }
   return config;
 });
+
+// ERROR HANDLER
+API.interceptors.response.use(
+  (res) => res,
+  (err) => {
+    console.log("API Error:", err.response?.data || err.message);
+    return Promise.reject(err);
+  }
+);
 
 export default API;
