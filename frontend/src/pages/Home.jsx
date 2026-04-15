@@ -3,10 +3,10 @@ import API from "../services/api";
 import UserNavbar from "../components/UserNavbar";
 import "./Home.css";
 
-const Home = () => {
+const Home = ({ cart, addToCart }) => {
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [addedIds, setAddedIds] = useState(new Set());
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -18,9 +18,17 @@ const Home = () => {
     fetchProducts();
   }, []);
 
-  // 🔥 Add to Cart
-  const addToCart = (product) => {
-    setCart([...cart, product]);
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    // Brief visual feedback
+    setAddedIds((prev) => new Set(prev).add(product._id));
+    setTimeout(() => {
+      setAddedIds((prev) => {
+        const next = new Set(prev);
+        next.delete(product._id);
+        return next;
+      });
+    }, 1200);
   };
 
   return (
@@ -64,10 +72,10 @@ const Home = () => {
                   <div className="card-footer">
                     <span className="card-price">₹{p.price}</span>
                     <button
-                      className="add-to-cart-btn"
-                      onClick={() => addToCart(p)}
+                      className={`add-to-cart-btn ${addedIds.has(p._id) ? "added" : ""}`}
+                      onClick={() => handleAddToCart(p)}
                     >
-                      + Cart
+                      {addedIds.has(p._id) ? "✓ Added" : "+ Cart"}
                     </button>
                   </div>
                 </div>

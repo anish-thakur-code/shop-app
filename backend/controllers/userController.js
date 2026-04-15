@@ -56,4 +56,10 @@ const generateToken = (id) => {
   });
 };
 
-module.exports = { registerUser, loginUser };
+// ================= GET ALL USERS (ADMIN) =================
+const getAllUsers = async (req, res) => {
+  const users = await User.find().select("-password").sort({ createdAt: -1 });
+  res.json(users);
+};
+
+module.exports = { registerUser, loginUser, getAllUsers };
