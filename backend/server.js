@@ -10,24 +10,14 @@ const app = express();
 // ✅ Body parser
 app.use(express.json());
 
-// ✅ CORS FIX (IMPORTANT)
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://shop-j88wpx1nf-anish5.vercel.app"
-];
-
+// ✅ CORS (FINAL FIX - ALL VERCEL + LOCAL)
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("CORS not allowed"));
-      }
-    },
+    origin: true, // 🔥 allow all origins (best for deployment)
     credentials: true,
   })
 );
+
 // ✅ Routes
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/products", require("./routes/productRoutes"));
