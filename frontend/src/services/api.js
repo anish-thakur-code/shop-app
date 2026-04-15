@@ -4,6 +4,8 @@ const API = axios.create({
   baseURL: "https://shop-app-1-l1m7.onrender.com/api" // 🔥 FINAL FIX
 });
 
+console.log("BASE URL:", API.defaults.baseURL);
+
 // 🔥 TOKEN AUTO ATTACH
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");

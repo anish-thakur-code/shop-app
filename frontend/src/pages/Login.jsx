@@ -9,6 +9,8 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    
+    console.log("CALLING LOGIN API...");
 
     try {
       const { data } = await API.post("/users/login", {
