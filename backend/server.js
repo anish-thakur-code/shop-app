@@ -13,16 +13,21 @@ app.use(express.json());
 // ✅ CORS FIX (IMPORTANT)
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://shop-2o7nc0haf-anish5.vercel.app"
+  "https://shop-j88wpx1nf-anish5.vercel.app"
 ];
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed"));
+      }
+    },
     credentials: true,
   })
 );
-
 // ✅ Routes
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/products", require("./routes/productRoutes"));
