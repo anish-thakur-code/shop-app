@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL
+  baseURL: "https://shop-app-1-l1m7.onrender.com/api"
 });
 
 // 🔥 AUTO TOKEN
@@ -15,7 +15,7 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
-// 🔥 OPTIONAL ERROR HANDLER (recommended)
+// 🔥 OPTIONAL ERROR HANDLER
 API.interceptors.response.use(
   (response) => response,
   (error) => {
