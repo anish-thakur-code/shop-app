@@ -1,10 +1,10 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://shop-app-1-l1m7.onrender.com/api"
+  baseURL: "https://shop-app-1-l1m7.onrender.com/api" // 🔥 FINAL FIX
 });
 
-// 🔥 AUTO TOKEN
+// 🔥 TOKEN AUTO ATTACH
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
 
@@ -15,7 +15,7 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
-// 🔥 OPTIONAL ERROR HANDLER
+// 🔥 ERROR HANDLER
 API.interceptors.response.use(
   (response) => response,
   (error) => {
